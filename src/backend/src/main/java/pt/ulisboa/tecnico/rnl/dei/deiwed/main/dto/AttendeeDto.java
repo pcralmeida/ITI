@@ -10,20 +10,24 @@ public class AttendeeDto implements Serializable {
 	private String name;
 	private String istId;
 	private String type;
+	private String email;
+	private boolean vegetarian;
 
 	public AttendeeDto() {
 	}
 
-	public AttendeeDto(long id, String name, String istId, String type) {
+	public AttendeeDto(long id, String name, String istId, String type, String email, boolean vegetarian) {
 		this.id = id;
 		this.name = name;
 		this.istId = istId;
 		this.type = type;
+		this.email = email;
+		this.vegetarian = vegetarian;
 	}
 
 	public AttendeeDto(Attendee attendee) {
 		this(attendee.getId(), attendee.getName(), attendee.getIstId(),
-				attendee.getType().toString());
+				attendee.getType().toString(), attendee.getEmail(), attendee.isVegetarian());
 	}
 
 	public long getId() {
@@ -58,8 +62,24 @@ public class AttendeeDto implements Serializable {
 		this.type = type;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isVegetarian() {
+		return this.vegetarian;
+	}
+
+	public void setVegetarian(boolean vegetarian) {
+		this.vegetarian = vegetarian;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("AttendeeDto[id=%d, name='%s', istId='%s', type='%s']", id, name, istId, type);
+		return String.format("AttendeeDto[id=%d, name='%s', istId='%s', type='%s', email='%s', vegetarian='%s']", id, name, istId, type, email, vegetarian);
 	}
 }

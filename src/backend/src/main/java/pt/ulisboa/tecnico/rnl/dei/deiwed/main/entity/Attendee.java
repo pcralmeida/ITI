@@ -29,6 +29,12 @@ public class Attendee {
 	@Column(name = "type", nullable = false)
 	private ATTENDEE_TYPE type;
 
+	@Column(name = "email", nullable = false)
+	private String email;
+
+	@Column(name = "vegetarian", nullable = false)
+	private boolean vegetarian;
+
 	// TODO: maybe add more fields? ...or maybe not? what makes sense here?
 	// TODO: add a list of events this attendee is attending? (by copilot)
 	// TODO: add if the attendee is vegan/intolerant?
@@ -36,15 +42,17 @@ public class Attendee {
 	protected Attendee() {
 	}
 
-	public Attendee(String name, String istId, ATTENDEE_TYPE type) {
+	public Attendee(String name, String istId, ATTENDEE_TYPE type, String email, boolean vegetarian) {
 		this.name = name;
 		this.istId = istId;
 		this.type = type;
+		this.email = email;
+		this.vegetarian = vegetarian;
 	}
 
 	public Attendee(AttendeeDto attendeeDto) {
 		this(attendeeDto.getName(), attendeeDto.getIstId(),
-				ATTENDEE_TYPE.valueOf(attendeeDto.getType().toUpperCase()));
+				ATTENDEE_TYPE.valueOf(attendeeDto.getType().toUpperCase()), attendeeDto.getEmail(), attendeeDto.isVegetarian());
 	}
 
 	public Long getId() {
@@ -79,10 +87,25 @@ public class Attendee {
 		this.type = type;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isVegetarian() {
+		return this.vegetarian;
+	}
+
+	public void setVegetarian(boolean vegetarian) {
+		this.vegetarian = vegetarian;
+	}
+
 	@Override
 	public String toString() {
 		return String.format(
-				"Attendee[id=%d, name='%s', istId='%s', type='%s']",
-				id, name, istId, type);
+				"Attendee[id=%d, name='%s', istId='%s', type='%s', email='%s', vegetarian='%s']", id, name, istId, type, email, vegetarian);
 	}
 }
