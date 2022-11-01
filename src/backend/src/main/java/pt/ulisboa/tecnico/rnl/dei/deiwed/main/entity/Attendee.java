@@ -35,6 +35,12 @@ public class Attendee {
 	@Column(name = "vegetarian", nullable = false)
 	private boolean vegetarian;
 
+	@Column(name = "intolerances", nullable = false)
+	private String intolerances;
+
+	@Column(name = "observations", nullable = false)
+	private String observations;
+
 	// TODO: maybe add more fields? ...or maybe not? what makes sense here?
 	// TODO: add a list of events this attendee is attending? (by copilot)
 	// TODO: add if the attendee is vegan/intolerant?
@@ -42,17 +48,19 @@ public class Attendee {
 	protected Attendee() {
 	}
 
-	public Attendee(String name, String istId, ATTENDEE_TYPE type, String email, boolean vegetarian) {
+	public Attendee(String name, String istId, ATTENDEE_TYPE type, String email, boolean vegetarian, String intolerances, String observations) {
 		this.name = name;
 		this.istId = istId;
 		this.type = type;
 		this.email = email;
 		this.vegetarian = vegetarian;
+		this.intolerances = intolerances;
+		this.observations = observations;
 	}
 
 	public Attendee(AttendeeDto attendeeDto) {
 		this(attendeeDto.getName(), attendeeDto.getIstId(),
-				ATTENDEE_TYPE.valueOf(attendeeDto.getType().toUpperCase()), attendeeDto.getEmail(), attendeeDto.isVegetarian());
+				ATTENDEE_TYPE.valueOf(attendeeDto.getType().toUpperCase()), attendeeDto.getEmail(), attendeeDto.isVegetarian(), attendeeDto.getIntolerances(), attendeeDto.getObservations());
 	}
 
 	public Long getId() {
@@ -103,9 +111,25 @@ public class Attendee {
 		this.vegetarian = vegetarian;
 	}
 
+	public String getIntolerances() {
+		return this.intolerances;
+	}
+
+	public void setIntolerances(String intolerances) {
+		this.intolerances = intolerances;
+	}
+
+	public String getObservations() {
+		return this.observations;
+	}
+
+	public void setObservations(String observations) {
+		this.observations = observations;
+	}
+
 	@Override
 	public String toString() {
 		return String.format(
-				"Attendee[id=%d, name='%s', istId='%s', type='%s', email='%s', vegetarian='%s']", id, name, istId, type, email, vegetarian);
+				"Attendee[id=%d, name='%s', istId='%s', type='%s', email='%s', vegetarian='%s', intolerances='%s', observations='%s']", id, name, istId, type, email, vegetarian, intolerances, observations);
 	}
 }

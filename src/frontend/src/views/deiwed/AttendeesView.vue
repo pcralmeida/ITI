@@ -49,7 +49,10 @@ export default class AttendeesView extends Vue {
     { text: 'Nome', value: 'name', sortable: true, filterable: true },
     { text: 'IST ID', value: 'istId', sortable: true, filterable: true },
     { text: 'Tipo', value: 'type', sortable: true, filterable: false },
-    // { text: 'Vegetariano', value: 'type', sortable: true, filterable: false },
+    { text: 'Email', value: 'email', sortable: true, filterable: false },
+    { text: 'Vegetariano', value: 'vegetarian', sortable: true, filterable: true },
+    { text: 'Intolerâncias', value: 'intolerances', sortable: true, filterable: true },
+    { text: 'Observações', value: 'observations', sortable: true, filterable: true },
     // TODO: maybe add another column with possible actions? (edit / delete)
   ];
   search = '';
