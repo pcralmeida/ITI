@@ -11,7 +11,7 @@
         ></v-text-field>
         <v-data-table
           :headers="headers"
-          :items="attendees"
+          :items="dishes"
           :search="search"
           :loading="loading"
           single-select
@@ -36,18 +36,18 @@
   </template>
   
   <script lang="ts">
-  import AttendeeDto from '@/models/deiwed/AttendeeDto';
+  import DishDto from '@/models/deiwed/DishDto';
   import RemoteServices from '@/services/RemoteServices';
   import { Component, Vue } from 'vue-property-decorator';
   import { DataTableHeader } from 'vuetify';
   
   @Component
   export default class DishesView extends Vue {
-    attendees: AttendeeDto[] = [];
+    dishes: DishDto[] = [];
     headers: DataTableHeader[] = [
       { text: 'Nome', value: 'name', sortable: true, filterable: true },
-      { text: 'Preço', value: 'istId', sortable: true, filterable: true },
-      { text: 'Vegetariano', value: 'type', sortable: true, filterable: false },
+      { text: 'Preço', value: 'unitPrice', sortable: true, filterable: true },
+      { text: 'Vegetariano', value: 'vegetarian', sortable: true, filterable: false },
       // TODO: maybe add another column with possible actions? (edit / delete)
     ];
     search = '';
@@ -56,7 +56,7 @@
     async mounted() {
       await this.$store.dispatch('loading');
       try {
-        this.attendees = await RemoteServices.getAttendees();
+        this.dishes = await RemoteServices.getDishes();
         this.loading = false;
       } catch (error) {
         this.$store.dispatch('error', error);
