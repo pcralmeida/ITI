@@ -25,9 +25,6 @@ public class Session {
 	@Column(name = "topic", nullable = false)
 	private String topic;
 
-
-	// TODO: maybe add more fields? ...or maybe not? what makes sense here?
-
 	protected Session() {
 	}
 
