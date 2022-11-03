@@ -5,6 +5,9 @@ import DeiwedError from '@/models/error/DeiwedError';
 import axios from 'axios';
 
 const httpClient = axios.create();
+const headers = {
+  'Authorization': 'Bearer ist198959'
+}
 httpClient.defaults.timeout = 50000;
 httpClient.defaults.baseURL = process.env.VUE_APP_ROOT_API;
 httpClient.defaults.headers.post['Content-Type'] = 'application/json';
@@ -13,6 +16,18 @@ export default class RemoteServices {
   static async getAttendees(): Promise<AttendeeDto[]> {
     return httpClient
       .get('/attendees')
+      .then((response) => response.data)
+      .catch(async (error) => {
+        throw new DeiwedError(
+          await this.errorMessage(error),
+          error.response.data.code
+        );
+      });
+  }
+
+  static async createAttendee(): Promise<AttendeeDto[]> {
+    return httpClient
+      .post('/attendees')
       .then((response) => response.data)
       .catch(async (error) => {
         throw new DeiwedError(
@@ -36,7 +51,7 @@ export default class RemoteServices {
 
   static async getDishes(): Promise<DishDto[]> {
     return httpClient
-      .get('/dishes')
+      .get('https://eindhoven.rnl.tecnico.ulisboa.pt/food-store/api/v1/dishes', {headers})
       .then(response => (response.data))
       .catch(async (error) => {
         throw new DeiwedError(
