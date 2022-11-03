@@ -24,7 +24,7 @@ public class DeiwedApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Attendee attendee = new Attendee("João", "ist199832", Attendee.ATTENDEE_TYPE.TEACHER, "joao@email.com", false, "none", "none"); 
+		Attendee attendee = new Attendee("Diogo", "ist199833", Attendee.ATTENDEE_TYPE.GRANTEE, "diogo@email.com", true, "lactose", "não gosta de frango");
 		attendeeRepository.save(attendee); //FIXME: clean when done
 	}
 
