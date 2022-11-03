@@ -30,6 +30,9 @@
           </v-chip>
           <v-chip v-else color="green" text-color="white"> Bolseiro </v-chip>
         </template>
+        <template v-slot:[`item.vegetarian`]="{ item }">
+          <v-simple-checkbox v-model="item.vegetarian" disabled/>
+        </template>
       </v-data-table>
     </v-card-text>
   </v-card>
@@ -53,8 +56,9 @@ export default class AttendeesView extends Vue {
     { text: 'Vegetariano', value: 'vegetarian', sortable: true, filterable: true },
     { text: 'Intolerâncias', value: 'intolerances', sortable: true, filterable: true },
     { text: 'Observações', value: 'observations', sortable: true, filterable: true },
-    // TODO: maybe add another column with possible actions? (edit / delete)
+    { text: 'Ações', value: 'actions', sortable: false, filterable: false },
   ];
+  dialog = false;
   search = '';
   loading = true;
 
