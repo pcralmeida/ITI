@@ -21,8 +21,8 @@
           color="info"
           style="padding-top: 5px"
         />
-        <v-icon v-if="!darkMode" color="#ffa825">fas fa-sun</v-icon>
-        <v-icon v-if="darkMode" color="#bebdb8">fas fa-moon</v-icon>
+        <v-icon v-if="!darkMode" color="#ffa825">mdi-white-balance-sunny</v-icon>
+        <v-icon v-if="darkMode" color="#0f9ad7">mdi-weather-night</v-icon>
       </v-toolbar-items>
     </v-app-bar>
 
@@ -115,8 +115,8 @@
             color="info"
             style="padding-top: 5px"
           />
-          <v-icon v-if="!darkMode" color="#ffa825">fas fa-sun</v-icon>
-          <v-icon v-else color="#bebdb8">fas fa-moon</v-icon>
+          <v-icon v-if="!darkMode" color="#ffa825">mdi-white-balance-sunny</v-icon>
+          <v-icon v-else color="#bebdb8">mdi-weather-night</v-icon>
         </div>
       </div>
     </v-navigation-drawer>
@@ -167,17 +167,17 @@ export default class TopBar extends Vue {
           {
             name: 'Participantes',
             path: '/attendees',
-            icon: 'fas fa-users',
+            icon: 'mdi-account',
           },
           {
             name: 'Pratos',
             path: '/dishes',
-            icon: 'fas fa-users', //TODO: change icon
+            icon: 'mdi-food-turkey', 
           },
           {
             name: 'Sessões',
             path: '/sessions',
-            icon: 'fas fa-users', //TODO: change icon
+            icon: 'mdi-clock-time-five-outline', 
           },
         ],
       },
