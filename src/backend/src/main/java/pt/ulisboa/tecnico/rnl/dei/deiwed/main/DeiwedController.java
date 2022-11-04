@@ -15,8 +15,6 @@ import pt.ulisboa.tecnico.rnl.dei.deiwed.main.dto.AttendeeDto;
 import pt.ulisboa.tecnico.rnl.dei.deiwed.main.service.AttendeeService;
 import pt.ulisboa.tecnico.rnl.dei.deiwed.main.dto.SessionDto;
 import pt.ulisboa.tecnico.rnl.dei.deiwed.main.service.SessionService;
-import pt.ulisboa.tecnico.rnl.dei.deiwed.main.dto.DishDto;
-import pt.ulisboa.tecnico.rnl.dei.deiwed.main.service.DishService;
 
 @RestController
 public class DeiwedController {
@@ -27,8 +25,6 @@ public class DeiwedController {
 	@Autowired
 	private SessionService sessionService;
 
-	@Autowired
-	private DishService dishService;
 
 	@GetMapping("/attendees")
 	public List<AttendeeDto> getAttendees() {
@@ -78,16 +74,6 @@ public class DeiwedController {
 	@DeleteMapping("/sessions/{id}")
 	public void deleteSession(@PathVariable long id) {
 		sessionService.deleteSession(id);
-	}
-
-	@GetMapping("/dishes")
-	public List<DishDto> getDishes() {
-		return dishService.getAllDishes();
-	}
-
-	@GetMapping("/dishes/{id}")
-	public DishDto getDish(@PathVariable long id) {
-		return dishService.getDish(id);
 	}
 
 }
