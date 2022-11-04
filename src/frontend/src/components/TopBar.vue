@@ -180,6 +180,11 @@ export default class TopBar extends Vue {
             icon: 'mdi-clock-time-five-outline', 
           },
           {
+            name: 'Encontrar Sessão',
+            path: '/sessions/search',
+            icon: 'mdi-clipboard-search-outline', 
+          },
+          {
             name: 'Pedido',
             path: '/order',
             icon: 'mdi-truck-delivery-outline', 
