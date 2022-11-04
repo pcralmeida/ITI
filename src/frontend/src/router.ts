@@ -32,6 +32,11 @@ const router = new Router({
       name: 'order',
       component: () => import('@/views/deiwed/OrderView.vue'),
     },
+    {
+      path: '/sessions/search',
+      name: 'sessions/search',
+      component: () => import('@/views/deiwed/SessionSearchView.vue'),
+    },
   ],
 });
 
