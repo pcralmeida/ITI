@@ -20,15 +20,9 @@
           no-results-text="Nenhuma sessão corresponde aos critérios indicados"
           sort-by="name"
         >
-          <template v-slot:[`item.type`]="{ item }">
-            <v-chip
-              v-if="item.type === 'TEACHER'"
-              color="purple"
-              text-color="white"
-            >
-              Professor
-            </v-chip>
-            <v-chip v-else color="green" text-color="white"> Bolseiro </v-chip>
+        <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="updateSession(item.id)">mdi-pencil</v-icon>
+            <v-icon small @click="deleteSession(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
       </v-card-text>
@@ -45,14 +39,46 @@
   export default class SessionsView extends Vue {
     sessions: SessionDto[] = [];
     headers: DataTableHeader[] = [
-      { text: 'ID', value: 'id', sortable: true, filterable: true },
       { text: 'Data', value: 'date', sortable: true, filterable: true },
       { text: 'Orador', value: 'speaker', sortable: true, filterable: true },
       { text: 'Tema', value: 'topic', sortable: true, filterable: false },
-      // TODO: maybe add another column with possible actions? (edit / delete)
+      { text: 'Ações', value: 'actions', sortable: false, filterable: false },
     ];
     search = '';
     loading = true;
+  
+    async createSession(sessionDto: SessionDto) {
+    await this.$store.dispatch('loading');
+    try {
+      this.sessions = await RemoteServices.createSession(sessionDto);
+      this.loading = false;
+    } catch (error) {
+      this.$store.dispatch('error', error);
+    }
+    await this.$store.dispatch('clearLoading');
+  }
+
+  async updateSession(id: number, sessionDto: SessionDto) {
+    await this.$store.dispatch('loading');
+    try {
+      this.sessions = await RemoteServices.updateSession(id, sessionDto);
+      this.loading = false;
+    } catch (error) {
+      this.$store.dispatch('error', error);
+    }
+    await this.$store.dispatch('clearLoading');
+  }
+
+  async deleteSession(id: number) {
+    await this.$store.dispatch('loading');
+    try {
+      this.sessions = await RemoteServices.deleteSession(id);
+      this.loading = false;
+    } catch (error) {
+      this.$store.dispatch('error', error);
+    }
+    await this.$store.dispatch('clearLoading');
+  }
   
     async mounted() {
       await this.$store.dispatch('loading');

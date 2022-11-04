@@ -20,15 +20,8 @@
           no-results-text="Nenhum prato corresponde aos critérios indicados"
           sort-by="name"
         >
-          <template v-slot:[`item.type`]="{ item }">
-            <v-chip
-              v-if="item.type === 'TEACHER'"
-              color="purple"
-              text-color="white"
-            >
-              Professor
-            </v-chip>
-            <v-chip v-else color="green" text-color="white"> Bolseiro </v-chip>
+          <template v-slot:[`item.vegetarian`]="{ item }">
+            <v-simple-checkbox v-model="item.vegetarian" disabled/>
           </template>
         </v-data-table>
       </v-card-text>
@@ -46,9 +39,8 @@
     dishes: DishDto[] = [];
     headers: DataTableHeader[] = [
       { text: 'Nome', value: 'name', sortable: true, filterable: true },
-      { text: 'Preço', value: 'unitPrice', sortable: true, filterable: true },
+      { text: 'Preço (cêntimos)', value: 'unitPrice', sortable: true, filterable: true },
       { text: 'Vegetariano', value: 'vegetarian', sortable: true, filterable: false },
-      // TODO: maybe add another column with possible actions? (edit / delete)
     ];
     search = '';
     loading = true;
