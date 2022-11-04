@@ -179,6 +179,11 @@ export default class TopBar extends Vue {
             path: '/sessions',
             icon: 'mdi-clock-time-five-outline', 
           },
+          {
+            name: 'Pedido',
+            path: '/order',
+            icon: 'mdi-truck-delivery-outline', 
+          },
         ],
       },
     ];
