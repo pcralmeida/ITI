@@ -20,10 +20,6 @@
         no-results-text="Nenhum participante corresponde aos critérios indicados"
         sort-by="name"
       >
-        <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2">mdi-pencil</v-icon>
-            <v-icon small @click="deleteAttendee(item.id)">mdi-delete</v-icon>
-        </template>
         <template v-slot:[`item.type`]="{ item }">
           <v-chip
             v-if="item.type === 'TEACHER'"
@@ -37,126 +33,132 @@
         <template v-slot:[`item.vegetarian`]="{ item }">
           <v-simple-checkbox v-model="item.vegetarian" disabled/>
         </template>
+        <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2">mdi-pencil</v-icon>
+            <v-icon small @click="deleteAttendee(item.id);">mdi-delete</v-icon>
+        </template>
       </v-data-table>
     </v-card-text>
-    <v-dialog
-          v-model="dialog"
-          max-width="500px"
-          persistent
-        >
-        <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >
-              Adicionar Participante
-            </v-btn>
-        </template>
-        <v-card>
-        <v-card-title>
-          <span class="text-h5">Adicionar Participante</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
+      <v-form ref="form" lazy-validation>
+      <v-dialog
+            v-model="dialog"
+            max-width="500px"
+            persistent
+          >
+          <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="primary"
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
               >
-                <v-text-field
-                
-                  label="Nome*"
-                  required
-                  hint="Nome do participante"
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                
-                  label="IST ID*"
-                  required
-                  hint="Número IST do participante"
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-              <v-select
-              
-                  :items="['Bolseiro', 'Professor']"
-                  label="Tipo*"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-         
-                  label="Email*"
-                  required
-                  hint="Email do participante"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-       
-                  label="Observações"
-                  hint="Observações sobre o participante"
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-              >
+                Adicionar Participante
+              </v-btn>
+          </template>
+          <v-card>
+          <v-card-title>
+            <span class="text-h5">Adicionar Participante</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="attendee.name"
+                    label="Nome*"
+                    required
+                    hint="Nome do participante"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
+                  <v-text-field
+                    v-model="attendee.istId"
+                    label="IST ID*"
+                    required
+                    hint="Número IST do participante"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
                 <v-select
-    
-                  :items="['Sim', 'Não']"
-                  label="Vegetariano*"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-              >
-                <v-autocomplete
-   
-                  :items="['Glúten', 'Lactose', 'Outro']"
-                  label="Intolerâncias"
-                  multiple
-                ></v-autocomplete>
-              </v-col>
-            </v-row>
-          </v-container>
-          <small>*preenchimento necessário</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Fechar
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="/*createAttendee({attendee.id, attendee.istId, attendee.type, attendee.email, attendee.vegetarian, attendee.intolerances, attendee.observations}),*/ dialog = false"
-          >
-            Guardar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-     </v-dialog>
+                    v-model="attendee.type"
+                    :items="['GRANTEE', 'TEACHER']"
+                    label="Tipo*"
+                    required
+                  ></v-select>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="attendee.email"
+                    label="Email*"
+                    required
+                    hint="Email do participante"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="attendee.observations"
+                    label="Observações"
+                    hint="Observações sobre o participante"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
+                  <v-select
+                    v-model="attendee.vegetarian"
+                    :items="[true, false]"
+                    label="Vegetariano*"
+                    required
+                  ></v-select>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
+                  <v-autocomplete
+                    v-model="attendee.intolerances"
+                    :items="['Glúten', 'Lactose', 'Outro']"
+                    label="Intolerâncias"
+                    multiple
+                  ></v-autocomplete>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*preenchimento necessário</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+            >
+              Fechar
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="createAttendee(attendee); dialog = false"
+            >
+              Guardar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-form>
   </v-card>
 </template>
 
@@ -183,7 +185,36 @@ export default class AttendeesView extends Vue {
   dialog = false;
   search = '';
   loading = true;
+  /*
+  vegetarian = null;
+  type = null;
 
+  convertVegetarian() {
+    if (this.vegetarian == 'Sim') {
+      return true;
+    }
+    return false;
+  }
+
+  convertType() {
+    if (this.type == 'Professor') {
+      return 'TEACHER';
+    }
+    return 'GRANTEE';
+  }
+*/
+
+  attendee: AttendeeDto = {
+      id: 0,
+      name: "",
+      istId: "",
+      type: "",
+      email: "",
+      vegetarian: false,
+      intolerances: "",
+      observations: "",
+  };
+  
   async createAttendee(attendeeDto: AttendeeDto) {
     await this.$store.dispatch('loading');
     try {
