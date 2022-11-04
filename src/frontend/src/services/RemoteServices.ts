@@ -1,16 +1,19 @@
 import AttendeeDto from '@/models/deiwed/AttendeeDto';
 import SessionDto from '@/models/deiwed/SessionDto';
 import DishDto from '@/models/deiwed/DishDto';
+import OrderDto from '@/models/deiwed/DishDto';
 import DeiwedError from '@/models/error/DeiwedError';
 import axios from 'axios';
 
 const httpClient = axios.create();
-const headers = {
-  'Authorization': 'Bearer ist198959'
-}
+
 httpClient.defaults.timeout = 50000;
 httpClient.defaults.baseURL = process.env.VUE_APP_ROOT_API;
 httpClient.defaults.headers.post['Content-Type'] = 'application/json';
+
+const headers = {
+  'Authorization': 'Bearer ist198959'
+}
 
 export default class RemoteServices {
   static async getAttendees(): Promise<AttendeeDto[]> {
@@ -25,9 +28,33 @@ export default class RemoteServices {
       });
   }
 
-  static async createAttendee(): Promise<AttendeeDto[]> {
+  static async createAttendee(attendee: AttendeeDto): Promise<AttendeeDto[]> {
     return httpClient
       .post('/attendees')
+      .then((response) => response.data)
+      .catch(async (error) => {
+        throw new DeiwedError(
+          await this.errorMessage(error),
+          error.response.data.code
+        );
+      });
+  }
+
+  static async updateAttendee(id: number, attendee: AttendeeDto): Promise<AttendeeDto[]> {
+    return httpClient
+      .put('/attendees/' + id)
+      .then((response) => response.data)
+      .catch(async (error) => {
+        throw new DeiwedError(
+          await this.errorMessage(error),
+          error.response.data.code
+        );
+      });
+  }
+
+  static async deleteAttendee(id: number): Promise<AttendeeDto[]> {
+    return httpClient
+      .delete('/attendees/' + id)
       .then((response) => response.data)
       .catch(async (error) => {
         throw new DeiwedError(
@@ -49,9 +76,57 @@ export default class RemoteServices {
       });
   }
 
+  static async createSession(session: SessionDto): Promise<SessionDto[]> {
+    return httpClient
+      .post('/sessions')
+      .then((response) => response.data)
+      .catch(async (error) => {
+        throw new DeiwedError(
+          await this.errorMessage(error),
+          error.response.data.code
+        );
+      });
+  }
+
+  static async updateSession(id: number, session: SessionDto): Promise<SessionDto[]> {
+    return httpClient
+      .put('/sessions/{id}')
+      .then((response) => response.data)
+      .catch(async (error) => {
+        throw new DeiwedError(
+          await this.errorMessage(error),
+          error.response.data.code
+        );
+      });
+  }
+
+  static async deleteSession(id: number): Promise<SessionDto[]> {
+    return httpClient
+      .delete('/sessions/{id}')
+      .then((response) => response.data)
+      .catch(async (error) => {
+        throw new DeiwedError(
+          await this.errorMessage(error),
+          error.response.data.code
+        );
+      });
+  }
+
   static async getDishes(): Promise<DishDto[]> {
     return httpClient
       .get('https://eindhoven.rnl.tecnico.ulisboa.pt/food-store/api/v1/dishes', {headers})
+      .then(response => (response.data))
+      .catch(async (error) => {
+        throw new DeiwedError(
+          await this.errorMessage(error),
+          error.response.data.code
+        );
+      });
+  }
+
+  static async createOrder(order: OrderDto): Promise<OrderDto[]> {
+    return httpClient
+      .post('https://eindhoven.rnl.tecnico.ulisboa.pt/food-store/api/v1/orders', {headers})
       .then(response => (response.data))
       .catch(async (error) => {
         throw new DeiwedError(
