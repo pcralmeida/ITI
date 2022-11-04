@@ -1,7 +1,7 @@
 import AttendeeDto from '@/models/deiwed/AttendeeDto';
 import SessionDto from '@/models/deiwed/SessionDto';
 import DishDto from '@/models/deiwed/DishDto';
-import OrderDto from '@/models/deiwed/DishDto';
+import OrderDto from '@/models/deiwed/OrderDto';
 import DeiwedError from '@/models/error/DeiwedError';
 import axios from 'axios';
 
@@ -30,7 +30,7 @@ export default class RemoteServices {
 
   static async createAttendee(attendee: AttendeeDto): Promise<AttendeeDto[]> {
     return httpClient
-      .post('/attendees')
+      .post('/attendees', attendee)
       .then((response) => response.data)
       .catch(async (error) => {
         throw new DeiwedError(
@@ -42,7 +42,7 @@ export default class RemoteServices {
 
   static async updateAttendee(id: number, attendee: AttendeeDto): Promise<AttendeeDto[]> {
     return httpClient
-      .put('/attendees/' + id)
+      .put(`/attendees/${id}`, attendee)
       .then((response) => response.data)
       .catch(async (error) => {
         throw new DeiwedError(
@@ -54,7 +54,7 @@ export default class RemoteServices {
 
   static async deleteAttendee(id: number): Promise<AttendeeDto[]> {
     return httpClient
-      .delete('/attendees/' + id)
+      .delete(`/attendees/${id}`)
       .then((response) => response.data)
       .catch(async (error) => {
         throw new DeiwedError(
@@ -78,7 +78,7 @@ export default class RemoteServices {
 
   static async createSession(session: SessionDto): Promise<SessionDto[]> {
     return httpClient
-      .post('/sessions')
+      .post('/sessions', session)
       .then((response) => response.data)
       .catch(async (error) => {
         throw new DeiwedError(
@@ -90,7 +90,7 @@ export default class RemoteServices {
 
   static async updateSession(id: number, session: SessionDto): Promise<SessionDto[]> {
     return httpClient
-      .put('/sessions/{id}')
+      .put(`/sessions/${id}`, session)
       .then((response) => response.data)
       .catch(async (error) => {
         throw new DeiwedError(
@@ -102,7 +102,7 @@ export default class RemoteServices {
 
   static async deleteSession(id: number): Promise<SessionDto[]> {
     return httpClient
-      .delete('/sessions/{id}')
+      .delete(`/sessions/${id}`)
       .then((response) => response.data)
       .catch(async (error) => {
         throw new DeiwedError(
@@ -124,9 +124,9 @@ export default class RemoteServices {
       });
   }
 
-  static async createOrder(order: OrderDto): Promise<OrderDto[]> {
+  static async createOrder(date: String, order: OrderDto): Promise<OrderDto[]> {
     return httpClient
-      .post('https://eindhoven.rnl.tecnico.ulisboa.pt/food-store/api/v1/orders', {headers})
+      .post(`https://eindhoven.rnl.tecnico.ulisboa.pt/food-store/api/v1/orders/${date}`, order, {headers})
       .then(response => (response.data))
       .catch(async (error) => {
         throw new DeiwedError(
