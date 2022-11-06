@@ -1,3 +1,4 @@
+
 # Exercício de Candidatura à Bolsa de Iniciação à Investigação BL204 (2022)
 
 
@@ -50,6 +51,9 @@ _Nota: caso seja preferido mudar a port do servidor local, tal pode ser feito di
 2.  Neste projeto há funcionalidades não implementadas, como é o caso da consulta de uma sessão numa página exclusiva<sup id="a1">[1](#fn1)</sup>.
 
 3.  Com vista a melhorar a UX do utilizador, foram feitas algumas mudanças no que toca a _icons_ (foi tomado a liberdade de passar a usar [material icons](https://materialdesignicons.com/)) e a outros casos, como a mudança do aspeto da _landing page_.
+
+4.  Por sugestão do enunciado, também foi utilizado [Git](https://git-scm.com) como sistema de controle de versões, tendo sido útil para o desenvolvimento. 
+
 
 </details>
 
