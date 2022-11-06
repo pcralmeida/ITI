@@ -8,7 +8,7 @@ Consultar o [enunciado](/enunciado.md).
 
 ### Programas e dependências necessárias
 
-Antes de correr o código, é necessário que o sistema utilizado contenha Java JDK (recomendado v11.0.16 ou acima) e os respetivos _modules_ e aplicações:
+Antes de correr o código, é necessário que o sistema utilizado contenha Java JDK (recomendado v11.0.16 ou acima) e os respetivos _modules_:
 
 -   **Maven Apache Server** (recomendado v3.8.6 ou acima)
 -   **Docker** (recomendado v14.13.0 ou acima)
@@ -28,13 +28,13 @@ Com a _database_ a funcionar, passaremos para o segundo passo. No entanto, podem
 
 > `mvn clean spring-boot:run`
 
-Podemos utilizar Ctrl-C a qualquer momento para terminar a execução.
+Podemos utilizar Ctrl-C a qualquer momento para terminar a execução. Teremos também de renomear o ficheiro `/backend/application.properties.example` para  `/backend/application.properties`.
 
 3. O terceiro passo será montar o _frontend_ do projeto, que consiste numa aplicação que utiliza **Vue _framework_**. Utilizaremos **npm** para tal, correndo o seguinte comando na diretoria  `/frontend`:
 
 > `npm run start`
 
-Este comando irá criar uma nova pasta (`/frontend/node_modules`), que contém dependências necessárias para o funcionamento da aplicação. Para terminar, utilizamos Ctrl-C.
+Este comando irá criar uma nova pasta (`/frontend/node_modules`), que contém dependências necessárias para o funcionamento da aplicação. Para terminar, utilizamos Ctrl-C. Teremos também de renomear o ficheiro`/frontend/.env.example` para  `/frontend/.env`.
 
 4.  Tendo completado todos os passos anteriores, podemos agora aceder ao endereço [http://127.0.0.1:8081/]() através de qualquer _browser_.  
 
