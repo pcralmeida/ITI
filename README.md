@@ -7,7 +7,7 @@ Consultar o [enunciado](/enunciado.md).
 
 ### Programas e dependências necessárias
 
-Antes de correr o código, é necessário que o sistema utilizado contenha Java JDK (recomendado v11.0.16 ou acima) e os respetivos _modules_:
+Antes de correr o código, é necessário que o sistema utilizado contenha Java JDK (recomendado v11.0.16 ou acima) e os respetivos _modules_ e aplicações:
 
 -   **Maven Apache Server** (recomendado v3.8.6 ou acima)
 -   **Docker** (recomendado v14.13.0 ou acima)
