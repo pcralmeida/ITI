@@ -53,9 +53,21 @@
                   sm="6"
                   md="4"
                 >
+                <v-text-field
+                    v-model="date"
+                    label="Data*"
+                    required
+                    hint="AAAA-MM-DD"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
                   <v-text-field
                     v-model="order.normalOptionDishId"
-                    label="ID do prato normal*"
+                    label="ID (prato normal)*"
                     required
                     hint="Dica: pode pesquisar o prato na tabela acima"
                   ></v-text-field>
@@ -67,7 +79,7 @@
                 >
                   <v-text-field
                     v-model="order.vegetarianOptionDishId"
-                    label="ID do prato vegetariano*"
+                    label="ID (prato vegetariano)*"
                     required
                     hint="Dica: pode pesquisar o prato na tabela acima"
                   ></v-text-field>
@@ -120,6 +132,7 @@ import { DataTableHeader } from 'vuetify';
 @Component
 export default class OrderView extends Vue {
   dishes: DishDto[] = [];
+  orders: OrderDto[] = [];
   headers: DataTableHeader[] = [
     { text: 'ID', value: 'id', sortable: true, filterable: true },
     { text: 'Nome', value: 'name', sortable: true, filterable: true },
@@ -129,7 +142,7 @@ export default class OrderView extends Vue {
   search = '';
   loading = true;
   dialog = false;
-  date = new Date().toJSON().slice(0, 10);
+  date = '';
 
   order: OrderDto = {
       normalOptionDishId: 0,
@@ -139,7 +152,7 @@ export default class OrderView extends Vue {
   async createOrder(date: String, orderDto: OrderDto) {
     await this.$store.dispatch('loading');
     try {
-      await RemoteServices.createOrder(date, orderDto);
+      this.orders = await RemoteServices.createOrder(date, orderDto);
       this.loading = false;
     } catch (error) {
       this.$store.dispatch('error', error);
