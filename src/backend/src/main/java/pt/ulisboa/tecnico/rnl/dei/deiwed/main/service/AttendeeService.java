@@ -42,10 +42,6 @@ public class AttendeeService {
 
 	public AttendeeDto updateAttendee(long id, AttendeeDto attendeeDto) {
 		fetchAttendeeOrThrow(id); // ensure exists
-
-		// FIXME: hmmm, updateAttendee and createAttendee are very similar
-		// maybe we should refactor this? have a
-		// `private AttendeeDto something(Long id, AttendeeDto attendeeDto)` method?
 		Attendee attendee = new Attendee(attendeeDto);
 		attendee.setId(id);
 		return new AttendeeDto(attendeeRepository.save(attendee));

@@ -41,10 +41,6 @@ public class Attendee {
 	@Column(name = "observations", nullable = false)
 	private String observations;
 
-	// TODO: maybe add more fields? ...or maybe not? what makes sense here?
-	// TODO: add a list of events this attendee is attending? (by copilot)
-	// TODO: add if the attendee is vegan/intolerant?
-
 	protected Attendee() {
 	}
 

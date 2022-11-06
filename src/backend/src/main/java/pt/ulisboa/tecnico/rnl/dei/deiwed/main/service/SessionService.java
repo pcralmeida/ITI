@@ -42,10 +42,6 @@ public class SessionService {
 
 	public SessionDto updateSession(long id, SessionDto sessionDto) {
 		fetchSessionOrThrow(id); // ensure exists
-
-		// FIXME: hmmm, updateAttendee and createAttendee are very similar
-		// maybe we should refactor this? have a
-		// `private AttendeeDto something(Long id, AttendeeDto attendeeDto)` method?
 		Session session = new Session(sessionDto);
 		session.setId(id);
 		return new SessionDto(sessionRepository.save(session));
